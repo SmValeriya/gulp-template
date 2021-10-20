@@ -1,0 +1,12 @@
+extends common/layout.pug
+
+block variables
+  -var page = 'about'
+
+block content
+  main.main
+    h1 Title
+    hr
+    include includes/about/info.pug
+    hr
+    //- и другие блоки

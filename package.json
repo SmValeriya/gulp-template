@@ -4,6 +4,7 @@
   "description": "Start boilerplate for static markup",
   "main": "index.js",
   "scripts": {
+    "pugLint": "glob-exec \"./src/pages/**/*.pug\" -- \"pug-lint {{files.join(' ')}}\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,7 +23,12 @@
   },
   "homepage": "https://github.com/SmValeriya/gulp-template#readme",
   "devDependencies": {
+    "glob-exec": "^0.1.1",
     "gulp": "^4.0.2",
-    "gulp-cli": "^2.3.0"
-  }
+    "gulp-cli": "^2.3.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-pug": "^5.0.0",
+    "pug-lint": "^2.6.0"
+  },
+  "dependencies": {}
 }
