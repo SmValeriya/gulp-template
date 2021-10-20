@@ -1,0 +1,34 @@
+@import "./utils/*.pcss";
+@import "./mixins/*.pcss";
+@import "./common/*.pcss";
+
+.foo {
+  color: red;
+}
+
+@media (min-width: 1024px) {
+  .foo {
+    color: green;
+  }
+}
+
+.bar {
+  font-size: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .bar {
+    font-size: 2rem;
+  }
+}
+
+div {
+  background: rgba(black, 0.4);
+  color: rgba(#e3e3e3, 0.7);
+}
+
+.add-svg-css {
+  background: svg-load('star.svg');
+  width: 150px;
+  height: 150px;
+}
