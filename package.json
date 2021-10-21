@@ -38,7 +38,9 @@
     "gulp-postcss": "^9.0.1",
     "gulp-pug": "^5.0.0",
     "gulp-rename": "^2.0.0",
+    "gulp-rm": "^2.0.0",
     "gulp-sourcemaps": "^3.0.0",
+    "husky": "^7.0.0",
     "postcss": "^8.3.9",
     "postcss-combine-media-query": "^1.0.1",
     "postcss-easy-import": "^3.0.0",
@@ -47,8 +49,7 @@
     "precss": "^4.0.0",
     "pug-lint": "^2.6.0",
     "stylelint": "^13.13.1",
-    "stylelint-config-standard": "^22.0.0",
-    "husky": "^7.0.0"
+    "stylelint-config-standard": "^22.0.0"
   },
   "dependencies": {
     "normalize.css": "^8.0.1"
