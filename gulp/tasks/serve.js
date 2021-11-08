@@ -13,6 +13,7 @@ exports.serve = (done) => {
   watch('./src/pages/**/*.pug', series('pug', reload));
   watch('./src/assets/styles/**/*.pcss', series('styles', reload));
   watch('./src/assets/scripts/**/*.js', series('scripts', reload));
+  watch('./src/assets/fonts/**/*.{woff,woff2}', series('fonts', reload));
 
   return done();
 };
