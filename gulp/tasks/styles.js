@@ -4,6 +4,7 @@ const plumber = require('gulp-plumber');
 const postcss = require('gulp-postcss');
 const rename = require('gulp-rename');
 const sourcemaps = require('gulp-sourcemaps');
+const rev = require('gulp-rev');
 const env = process.env.NODE_ENV;
 
 exports.styles = () => {
@@ -15,7 +16,10 @@ exports.styles = () => {
       suffix: ".min",
       extname: ".css"
     }))
+    .pipe(gulpif(env === 'prod', rev()))
     .pipe(gulpif(env === 'dev', sourcemaps.write()))
     .pipe(plumber.stop())
+    .pipe(dest('./build'))
+    .pipe(gulpif(env === 'prod', rev.manifest('build/rev-manifest.json', {base: './build', merge: true})))
     .pipe(dest('./build'));
 };

@@ -22,7 +22,7 @@ exports.sprite = () => {
     .pipe(svgSprite({
       mode: {
         stack: {
-          sprite: "../sprite.svg"
+          sprite: '../sprite.svg'
         }
       }
     }))
