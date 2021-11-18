@@ -1,14 +1,16 @@
-const {src, dest} = require('gulp');
-const gulpif = require('gulp-if');
-const plumber = require('gulp-plumber');
-const postcss = require('gulp-postcss');
-const rename = require('gulp-rename');
-const sourcemaps = require('gulp-sourcemaps');
-const rev = require('gulp-rev');
+'use strict';
+
+import gulp from 'gulp';
+import gulpif from 'gulp-if';
+import plumber from 'gulp-plumber';
+import postcss from 'gulp-postcss';
+import rename from 'gulp-rename';
+import sourcemaps from 'gulp-sourcemaps';
+import rev from 'gulp-rev';
 const env = process.env.NODE_ENV;
 
-exports.styles = () => {
-  return src('./src/assets/styles/*.pcss')
+export const styles = () => {
+  return gulp.src('./src/assets/styles/*.pcss')
     .pipe(plumber())
     .pipe(gulpif(env === 'dev', sourcemaps.init()))
     .pipe(postcss())
@@ -19,7 +21,7 @@ exports.styles = () => {
     .pipe(gulpif(env === 'prod', rev()))
     .pipe(gulpif(env === 'dev', sourcemaps.write()))
     .pipe(plumber.stop())
-    .pipe(dest('./build'))
+    .pipe(gulp.dest('./build'))
     .pipe(gulpif(env === 'prod', rev.manifest('build/rev-manifest.json', {base: './build', merge: true})))
-    .pipe(dest('./build'));
+    .pipe(gulpif(env === 'prod', gulp.dest('./build')));
 };

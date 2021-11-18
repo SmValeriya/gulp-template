@@ -1,40 +1,51 @@
-const {src, dest} = require('gulp');
-const gulpif = require('gulp-if');
-const changed = require('gulp-changed');
-const imagemin = require('gulp-imagemin');
-const plumber = require('gulp-plumber');
+'use strict';
+
+import gulp from 'gulp';
+import gulpif from 'gulp-if';
+import imagemin, {gifsicle, mozjpeg, optipng, svgo} from 'gulp-imagemin';
+import plumber from 'gulp-plumber';
+
 const env = process.env.NODE_ENV;
 
-exports.images = () => {
-  return src('./src/assets/images/**/*.{jpg,jpeg,png,gif,svg}')
+export const images = () => {
+  return gulp.src('./src/assets/images/**/*')
     .pipe(plumber())
-    .pipe(changed('build/images', {hasChanged: changed.compareContents}))
     .pipe(gulpif(env === 'prod', imagemin([
-      imagemin.gifsicle({
+      gifsicle({
         optimizationLevel: 3
       }),
-      imagemin.optipng({
+      optipng({
         optimizationLevel: 5
       }),
-      imagemin.mozjpeg({
+      mozjpeg({
         quality: 75
       }),
-      imagemin.svgo({
+      svgo({
         plugins: [
-          {cleanupListOfValues: {floatPrecision: 0}},
-          {removeAttrs: {attrs: 'style|data.*'}},
           {
-            removeAttributesBySelector: {
+            name: 'cleanupListOfValues',
+            params: {floatPrecision: 0}
+          },
+          {
+            name: 'removeAttrs',
+            params: {attrs: 'style|data.*'}
+          },
+          {
+            name: 'removeAttributesBySelector',
+            params: {
               selectors: [
                 {selector: ':not([fill="none"])', attributes: ['fill']},
                 {selector: '*', attributes: ['stroke'],}
               ]
             },
           },
-          {removeDimensions: true},
+          {
+            name: 'removeDimensions',
+            active: true
+          },
         ]
       })
     ])))
     .pipe(plumber.stop())
-    .pipe(dest('./build/images'));
+    .pipe(gulp.dest('./build/images'));
 };

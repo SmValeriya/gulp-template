@@ -1,9 +1,11 @@
-const {src, dest} = require('gulp');
-const svgo = require('gulp-svgo');
-const svgSprite = require('gulp-svg-sprite');
+'use strict';
 
-exports.sprite = () => {
-  return src('./src/assets/images/icons/**/*.svg')
+import gulp from 'gulp';
+import svgo from 'gulp-svgo';
+import svgSprite from 'gulp-svg-sprite';
+
+export const sprite = () => {
+  return gulp.src('./src/assets/images/icons/**/*.svg')
     .pipe(svgo({
       plugins: [
         {cleanupListOfValues: {floatPrecision: 0}},
@@ -26,5 +28,5 @@ exports.sprite = () => {
         }
       }
     }))
-    .pipe(dest('./build'));
+    .pipe(gulp.dest('./build'));
 };

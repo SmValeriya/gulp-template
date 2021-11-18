@@ -1,10 +1,12 @@
-const {src, dest} = require('gulp');
-const revReplace = require('gulp-rev-replace');
+'use strict';
 
-exports.revreplace = () => {
-  const manifest = src('./build/rev-manifest.json');
+import gulp from 'gulp';
+import revReplace from 'gulp-rev-replace';
 
-  return src('build/*.html')
+export const revreplace = () => {
+  const manifest = gulp.src('./build/rev-manifest.json');
+
+  return gulp.src('build/*.html')
     .pipe(revReplace({manifest: manifest}))
-    .pipe(dest('build'));
+    .pipe(gulp.dest('build'));
 };

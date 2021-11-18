@@ -1,8 +1,12 @@
-const {watch, series} = require('gulp');
-const browserSync = require('browser-sync').create();
+'use strict';
 
-exports.serve = (done) => {
-  browserSync.init({
+import gulp from 'gulp';
+import browsersync from "browser-sync";
+// const browserSync = require('browser-sync').create();
+const bs = browsersync.create();
+
+export const serve = (done) => {
+  bs.init({
     server: {
       baseDir: "./build"
     },
@@ -10,17 +14,17 @@ exports.serve = (done) => {
     notify: false,
     cors: true
   });
-  watch('./src/pages/**/*.pug', series('pug', reload));
-  watch('./src/assets/styles/**/*.pcss', series('styles', reload));
-  watch('./src/assets/scripts/**/*.js', series('scripts', reload));
-  watch('./src/assets/fonts/**/*.{woff,woff2}', series('fonts', reload));
-  watch('./src/assets/images/**/*.{jpg,jpeg,png,gif,svg}', series('images', reload));
-  watch('./src/assets/images/icons/**/*.svg', series('sprite', reload));
+  gulp.watch('./src/pages/**/*.pug', gulp.series('views', reload));
+  gulp.watch('./src/assets/styles/**/*.pcss', gulp.series('styles', reload));
+  gulp.watch('./src/assets/scripts/**/*.js', gulp.series('scripts', reload));
+  gulp.watch('./src/assets/fonts/**/*.{woff,woff2}', gulp.series('fonts', reload));
+  gulp.watch('./src/assets/images/**/*.{jpg,jpeg,png,gif,svg}', gulp.series('images', reload));
+  gulp.watch('./src/assets/images/icons/**/*.svg', gulp.series('sprite', reload));
 
   return done();
 };
 
 function reload(done) {
-  browserSync.reload();
+  bs.reload();
   done();
 }

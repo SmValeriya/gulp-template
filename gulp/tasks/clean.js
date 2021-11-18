@@ -1,7 +1,9 @@
-const {src} = require('gulp');
-const rm = require('gulp-rm');
+'use strict';
 
-exports.clean = () => {
-  return src('build/**/*', {read: false})
+import gulp from 'gulp';
+import rm from 'gulp-rm';
+
+export const clean = () => {
+  return gulp.src('build/**/*', {read: false})
     .pipe(rm());
 };

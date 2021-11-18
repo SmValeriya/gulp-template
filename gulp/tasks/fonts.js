@@ -1,6 +1,8 @@
-const {src, dest} = require('gulp');
+'use strict';
 
-exports.fonts = () => {
-  return src('./src/assets/fonts/**/*.{woff,woff2}')
-    .pipe(dest('./build'));
+import gulp from 'gulp';
+
+export const fonts = () => {
+  return gulp.src('./src/assets/fonts/**/*.{woff,woff2}')
+    .pipe(gulp.dest('./build'));
 };

@@ -1,4 +1,4 @@
-import { test } from './common/test';
+import { test } from './common/test.js';
 
 console.log('about page here');
 

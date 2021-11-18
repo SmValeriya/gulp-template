@@ -1,7 +1,8 @@
-const TerserPlugin = require('terser-webpack-plugin');
+import TerserPlugin from 'terser-webpack-plugin';
+
 const env = process.env.NODE_ENV;
 
-module.exports = {
+export default {
   entry: {
     index: './src/assets/scripts/index.js',
     about: './src/assets/scripts/about.js',
@@ -12,17 +13,8 @@ module.exports = {
     chunkFilename: '[name].js',
     publicPath: '/'
   },
-  module: {
-    rules: [
-      {
-        test: /\.m?js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-        }
-      }
-    ]
-  },
+  mode: env === 'prod' ? 'production' : 'development',
+  devtool: env === 'prod' ? false : 'source-map',
   optimization: {
     minimize: env === 'prod',
     minimizer: [

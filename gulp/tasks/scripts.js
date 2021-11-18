@@ -1,19 +1,25 @@
-const {src, dest} = require('gulp');
-const webpack = require('webpack');
-const webpackStream = require('webpack-stream');
-const webpackConfig = require('../../webpack.config');
-const gulpif = require('gulp-if');
+'use strict';
+
+import gulp from 'gulp';
+import webpack from 'webpack';
+import webpackStream from 'webpack-stream';
+import plumber from 'gulp-plumber';
+import webpackConfig from '../../webpack.config.babel.js';
+import gulpif from 'gulp-if';
+import rev from 'gulp-rev';
+
 const env = process.env.NODE_ENV;
-const rev = require('gulp-rev');
 
-webpackConfig.mode = env === 'prod' ? 'production' : 'development';
-webpackConfig.devtool = env === 'prod' ? false : 'source-map';
-
-exports.scripts = () => {
-  return src('./src/assets/scripts/*.js')
-    .pipe(webpackStream(webpackConfig), webpack)
+export const scripts = () => {
+  return gulp.src('./src/assets/scripts/*.js')
+    .pipe(plumber())
+    .pipe(webpackStream(webpackConfig, webpack))
     .pipe(gulpif(env === 'prod', rev()))
-    .pipe(dest('./build'))
-    .pipe(gulpif(env === 'prod', rev.manifest('build/rev-manifest.json', {base: './build', merge: true})))
-    .pipe(dest('./build'));
+    .pipe(plumber.stop())
+    .pipe(gulp.dest('./build'))
+    .pipe(gulpif(env === 'prod', rev.manifest('build/rev-manifest.json', {
+      base: './build',
+      merge: true
+    })))
+    .pipe(gulpif(env === 'prod', gulp.dest('./build')));
 };
