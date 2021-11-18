@@ -1,5 +1,6 @@
 module.exports = (ctx) => {
   return {
+    map: ctx.env === 'dev',
     plugins: {
       'postcss-easy-import': {
         extensions: ['.css', '.pcss'],
