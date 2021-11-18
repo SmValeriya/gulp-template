@@ -19,3 +19,4 @@ function fooka() {
 }
 
 const baz = 123;
+fooka();

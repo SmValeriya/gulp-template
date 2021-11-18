@@ -12,7 +12,7 @@
     "styleLintFix": "stylelint \"./src/assets/styles/**/*.pcss\" --fix",
     "eslint": "eslint \"./src/assets/scripts/**/*.js\"",
     "eslintFix": "eslint \"./src/assets/scripts/**/*.js\" --fix",
-    "test": "npm run pugLint && npm run styleLint",
+    "test": "npm run pugLint && npm run styleLint && npm run eslint",
     "prepare": "husky install"
   },
   "repository": {
