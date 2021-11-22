@@ -18,7 +18,7 @@ export const serve = (done) => {
   gulp.watch('./src/assets/styles/**/*.pcss', gulp.series('styles', reload));
   gulp.watch('./src/assets/scripts/**/*.js', gulp.series('scripts', reload));
   gulp.watch('./src/assets/fonts/**/*.{woff,woff2}', gulp.series('fonts', reload));
-  gulp.watch('./src/assets/images/**/*.{jpg,jpeg,png,gif,svg}', gulp.series('images', reload));
+  gulp.watch('./src/assets/images/**/*.{jpg,jpeg,png,gif,svg}', gulp.series('images', 'webp', reload));
   gulp.watch('./src/assets/images/icons/**/*.svg', gulp.series('sprite', reload));
 
   return done();

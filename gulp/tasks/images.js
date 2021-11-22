@@ -2,14 +2,16 @@
 
 import gulp from 'gulp';
 import gulpif from 'gulp-if';
+import changed from 'gulp-changed';
 import imagemin, {gifsicle, mozjpeg, optipng, svgo} from 'gulp-imagemin';
 import plumber from 'gulp-plumber';
 
 const env = process.env.NODE_ENV;
 
 export const images = () => {
-  return gulp.src('./src/assets/images/**/*')
+  return gulp.src('./src/assets/images/**/*.{jpg,jpeg,png,gif,tiff,svg}')
     .pipe(plumber())
+    .pipe(gulpif(env === 'dev'), changed('./build/images'))
     .pipe(gulpif(env === 'prod', imagemin([
       gifsicle({
         optimizationLevel: 3
