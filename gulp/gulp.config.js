@@ -1,12 +1,12 @@
-const srcDir = 'src';
-const buildDir = 'build';
+export const srcDir = 'src';
+export const buildDir = 'build';
 const env = process.env.NODE_ENV;
 
 const productionMode = 'production';
 
-const isProdMode = env === productionMode;
+export const isProdMode = env === productionMode;
 
-const svgoPlugins = [
+export const svgoPlugins = [
   {
     name: 'cleanupListOfValues',
     params: {floatPrecision: 0}
@@ -21,7 +21,7 @@ const svgoPlugins = [
   },
 ];
 
-const svgoPluginsSprite = [...svgoPlugins];
+export const svgoPluginsSprite = [...svgoPlugins];
 
 svgoPluginsSprite.push({
   name: 'removeAttributesBySelector',
@@ -33,7 +33,7 @@ svgoPluginsSprite.push({
   },
 });
 
-const revManifest = {
+export const revManifest = {
   path: `${buildDir}/rev-manifest.json`,
   options: {
     base: `./${buildDir}`,
@@ -41,7 +41,7 @@ const revManifest = {
   }
 };
 
-const browserSyncOptions = {
+export const browserSyncOptions = {
   server: {
     baseDir: "./build"
   },
@@ -50,7 +50,7 @@ const browserSyncOptions = {
   cors: true
 };
 
-const paths = {
+export const paths = {
   views: {
     src: `./${srcDir}/pages/*.pug`,
     dist: buildDir,
@@ -86,18 +86,7 @@ const paths = {
     watch: `./${srcDir}/fonts/**/*.{woff,woff2}`
   },
   favicon: {
-    src: `./${srcDir}/img/favicon/*.{jpg,jpeg,png,gif}`,
+    src: `./${srcDir}/images/favicon/*.{jpg,jpeg,png,gif}`,
     dist: `./${buildDir}/images/favicon/`,
   }
 };
-
-export {
-  isProdMode,
-  srcDir,
-  buildDir,
-  paths,
-  revManifest,
-  svgoPlugins,
-  svgoPluginsSprite,
-  browserSyncOptions
-}

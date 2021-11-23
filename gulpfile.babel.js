@@ -9,17 +9,30 @@ import {sprite} from './gulp/tasks/sprite.js';
 import {webp} from './gulp/tasks/webp.js';
 import {reWriteDependencyNames} from './gulp/tasks/revrewrite.js';
 import {serve} from './gulp/tasks/serve.js';
+import {favicon} from './gulp/tasks/favicon.js';
 
-export {clean, views, styles, scripts, fonts, images, sprite, webp, reWriteDependencyNames, serve};
+export {
+  clean,
+  views,
+  styles,
+  scripts,
+  fonts,
+  images,
+  sprite,
+  webp,
+  favicon,
+  reWriteDependencyNames,
+  serve
+};
 
 export default gulp.series(
   clean,
-  gulp.parallel(views, styles, scripts, fonts, images, sprite, webp),
+  gulp.parallel(views, styles, scripts, fonts, images, sprite, webp, favicon),
   serve
 );
 
 export const build = gulp.series(
   clean,
-  gulp.parallel(views, styles, scripts, fonts, images, sprite, webp),
+  gulp.parallel(views, styles, scripts, fonts, images, sprite, webp, favicon),
   reWriteDependencyNames
 )

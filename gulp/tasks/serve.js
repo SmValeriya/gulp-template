@@ -1,5 +1,3 @@
-'use strict';
-
 import gulp from 'gulp';
 import {paths, browserSyncOptions} from '../gulp.config.js';
 import browserSync from 'browser-sync';

@@ -1,5 +1,3 @@
-'use strict';
-
 import gulp from 'gulp';
 import pug from 'gulp-pug';
 import plumber from 'gulp-plumber';

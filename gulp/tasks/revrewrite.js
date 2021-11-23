@@ -1,5 +1,3 @@
-'use strict';
-
 import gulp from 'gulp';
 import revRewrite from 'gulp-rev-rewrite';
 import {readFileSync} from 'fs';

@@ -1,5 +1,3 @@
-'use strict';
-
 import gulp from 'gulp';
 import svgo from 'gulp-svgo';
 import svgSprite from 'gulp-svg-sprite';
