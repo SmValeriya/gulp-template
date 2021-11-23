@@ -1,25 +1,18 @@
 'use strict';
 
 import gulp from 'gulp';
-import browsersync from "browser-sync";
-// const browserSync = require('browser-sync').create();
-const bs = browsersync.create();
+import {paths, browserSyncOptions} from '../gulp.config.js';
+import browserSync from 'browser-sync';
+const bs = browserSync.create();
 
 export const serve = (done) => {
-  bs.init({
-    server: {
-      baseDir: "./build"
-    },
-    open: false,
-    notify: false,
-    cors: true
-  });
-  gulp.watch('./src/pages/**/*.pug', gulp.series('views', reload));
-  gulp.watch('./src/assets/styles/**/*.pcss', gulp.series('styles', reload));
-  gulp.watch('./src/assets/scripts/**/*.js', gulp.series('scripts', reload));
-  gulp.watch('./src/assets/fonts/**/*.{woff,woff2}', gulp.series('fonts', reload));
-  gulp.watch('./src/assets/images/**/*.{jpg,jpeg,png,gif,svg}', gulp.series('images', 'webp', reload));
-  gulp.watch('./src/assets/images/icons/**/*.svg', gulp.series('sprite', reload));
+  bs.init(browserSyncOptions);
+  gulp.watch(paths.views.watch, gulp.series('views', reload));
+  gulp.watch(paths.styles.watch, gulp.series('styles', reload));
+  gulp.watch(paths.scripts.watch, gulp.series('scripts', reload));
+  gulp.watch(paths.fonts.watch, gulp.series('fonts', reload));
+  gulp.watch(paths.images.watch, gulp.series('images', 'webp', reload));
+  gulp.watch(paths.sprite.watch, gulp.series('sprite', reload));
 
   return done();
 };

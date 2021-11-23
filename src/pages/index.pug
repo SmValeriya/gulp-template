@@ -9,7 +9,7 @@ block content
     include includes/index/banner.pug
     hr
     p paragraph
-    img(src="img/forest.jpg" alt="Forest")
+    img(src="./images/lisjata1.webp" alt="Fox")
     ul.items
       each val in team
         li= val
@@ -23,3 +23,7 @@ block content
         each val in ["Home", "Blog", "About"]
           li.navbar__button
             a(href="#")= val
+    svg
+      use(href="./images/sprite.svg#star" fill="blue")
+    svg
+      use(href="./images/owl.svg#owl")

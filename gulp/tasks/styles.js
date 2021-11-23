@@ -6,19 +6,19 @@ import plumber from 'gulp-plumber';
 import postcss from 'gulp-postcss';
 import rename from 'gulp-rename';
 import rev from 'gulp-rev';
-const env = process.env.NODE_ENV;
+import {isProdMode, paths, revManifest} from '../gulp.config.js';
 
 export const styles = () => {
-  return gulp.src('./src/assets/styles/*.pcss')
+  return gulp.src(paths.styles.src)
     .pipe(plumber())
     .pipe(postcss())
     .pipe(rename({
       suffix: ".min",
       extname: ".css"
     }))
-    .pipe(gulpif(env === 'prod', rev()))
+    .pipe(gulpif(isProdMode, rev()))
     .pipe(plumber.stop())
-    .pipe(gulp.dest('./build'))
-    .pipe(gulpif(env === 'prod', rev.manifest('build/rev-manifest.json', {base: './build', merge: true})))
-    .pipe(gulpif(env === 'prod', gulp.dest('./build')));
+    .pipe(gulp.dest(paths.styles.dist))
+    .pipe(gulpif(isProdMode, rev.manifest(revManifest.path, revManifest.options)))
+    .pipe(gulpif(isProdMode, gulp.dest(revManifest.options.base)));
 };

@@ -3,24 +3,13 @@
 import gulp from 'gulp';
 import svgo from 'gulp-svgo';
 import svgSprite from 'gulp-svg-sprite';
+import plumber from 'gulp-plumber';
+import {paths, svgoPluginsSprite} from '../gulp.config.js';
 
 export const sprite = () => {
-  return gulp.src('./src/assets/images/icons/**/*.svg')
-    .pipe(svgo({
-      plugins: [
-        {cleanupListOfValues: {floatPrecision: 0}},
-        {removeAttrs: {attrs: 'style|data.*'}},
-        {
-          removeAttributesBySelector: {
-            selectors: [
-              {selector: ':not([fill="none"])', attributes: ['fill']},
-              {selector: '*', attributes: ['stroke'],}
-            ]
-          },
-        },
-        {removeDimensions: true},
-      ]
-    }))
+  return gulp.src(paths.sprite.src)
+    .pipe(plumber())
+    .pipe(svgo(svgoPluginsSprite))
     .pipe(svgSprite({
       mode: {
         stack: {
@@ -28,5 +17,6 @@ export const sprite = () => {
         }
       }
     }))
-    .pipe(gulp.dest('./build'));
+    .pipe(plumber.stop())
+    .pipe(gulp.dest(paths.sprite.dist));
 };

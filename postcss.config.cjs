@@ -1,6 +1,6 @@
 module.exports = (ctx) => {
   return {
-    map: ctx.env === 'dev',
+    map: ctx.env === 'development',
     plugins: {
       'postcss-easy-import': {
         extensions: ['.css', '.pcss'],
@@ -8,11 +8,11 @@ module.exports = (ctx) => {
       'postcss-rgb': {},
       'postcss-inline-svg': {
         removeFill: true,
-        paths: ['./src/assets/images/icons']
+        paths: ['./src/images/icons']
       },
       'precss': {},
-      'postcss-combine-media-query': ctx.env === 'prod' ? {} : false,
-      cssnano: ctx.env === 'prod' ? {} : false
+      'postcss-combine-media-query': ctx.env === 'production' ? {} : false,
+      cssnano: ctx.env === 'production' ? {} : false
     }
   }
 }

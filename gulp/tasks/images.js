@@ -5,14 +5,14 @@ import gulpif from 'gulp-if';
 import changed from 'gulp-changed';
 import imagemin, {gifsicle, mozjpeg, optipng, svgo} from 'gulp-imagemin';
 import plumber from 'gulp-plumber';
-
-const env = process.env.NODE_ENV;
+import rename from 'gulp-rename';
+import {paths, isProdMode, svgoPlugins} from '../gulp.config.js';
 
 export const images = () => {
-  return gulp.src('./src/assets/images/**/*.{jpg,jpeg,png,gif,tiff,svg}')
+  return gulp.src(paths.images.src)
     .pipe(plumber())
-    .pipe(gulpif(env === 'dev'), changed('./build/images'))
-    .pipe(gulpif(env === 'prod', imagemin([
+    .pipe(changed(paths.images.dist))
+    .pipe(gulpif(isProdMode, imagemin([
       gifsicle({
         optimizationLevel: 3
       }),
@@ -22,32 +22,9 @@ export const images = () => {
       mozjpeg({
         quality: 75
       }),
-      svgo({
-        plugins: [
-          {
-            name: 'cleanupListOfValues',
-            params: {floatPrecision: 0}
-          },
-          {
-            name: 'removeAttrs',
-            params: {attrs: 'style|data.*'}
-          },
-          {
-            name: 'removeAttributesBySelector',
-            params: {
-              selectors: [
-                {selector: ':not([fill="none"])', attributes: ['fill']},
-                {selector: '*', attributes: ['stroke'],}
-              ]
-            },
-          },
-          {
-            name: 'removeDimensions',
-            active: true
-          },
-        ]
-      })
+      svgo(svgoPlugins)
     ])))
+    .pipe(rename({dirname: ''}))
     .pipe(plumber.stop())
-    .pipe(gulp.dest('./build/images'));
+    .pipe(gulp.dest(paths.images.dist));
 };

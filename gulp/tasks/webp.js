@@ -3,14 +3,16 @@
 import gulp from 'gulp';
 import gwebp from 'gulp-webp';
 import changed from 'gulp-changed';
-import gulpif from "gulp-if";
-
-const env = process.env.NODE_ENV;
-const gwebpOptions = env === 'prod' ? {lossless: true} : {};
+import plumber from 'gulp-plumber';
+import rename from 'gulp-rename';
+import {paths} from '../gulp.config.js';
 
 export const webp = () => {
-  return gulp.src('./src/assets/images/**/*.{jpg,jpeg,png,tiff,webp}')
-    .pipe(gulpif(env === 'dev'), changed('./build/images'))
-    .pipe(gwebp(gwebpOptions))
-    .pipe(gulp.dest('./build/images'))
+  return gulp.src(paths.images.src)
+    .pipe(plumber())
+    .pipe(changed(paths.images.dist))
+    .pipe(gwebp())
+    .pipe(rename({dirname: ''}))
+    .pipe(plumber.stop())
+    .pipe(gulp.dest(paths.images.dist))
 };

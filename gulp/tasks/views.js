@@ -1,18 +1,18 @@
 'use strict';
 
 import gulp from 'gulp';
-import plumber from 'gulp-plumber';
 import pug from 'gulp-pug';
+import plumber from 'gulp-plumber';
+import {isProdMode, paths} from '../gulp.config.js';
 import {data} from '../../content.js';
-const env = process.env.NODE_ENV;
 
 export const views = () => {
-  return gulp.src('./src/pages/*.pug')
+  return gulp.src(paths.views.src)
     .pipe(plumber())
     .pipe(pug({
       data: data,
-      pretty: env === 'dev'
+      pretty: !isProdMode
     }))
     .pipe(plumber.stop())
-    .pipe(gulp.dest('./build'));
+    .pipe(gulp.dest(paths.views.dist));
 };

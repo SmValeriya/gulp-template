@@ -7,10 +7,10 @@ import {fonts} from './gulp/tasks/fonts.js';
 import {images} from './gulp/tasks/images.js';
 import {sprite} from './gulp/tasks/sprite.js';
 import {webp} from './gulp/tasks/webp.js';
-import {revreplace} from './gulp/tasks/revreplace.js';
+import {reWriteDependencyNames} from './gulp/tasks/revrewrite.js';
 import {serve} from './gulp/tasks/serve.js';
 
-export {clean, views, styles, scripts, fonts, images, sprite, webp, revreplace, serve};
+export {clean, views, styles, scripts, fonts, images, sprite, webp, reWriteDependencyNames, serve};
 
 export default gulp.series(
   clean,
@@ -21,5 +21,5 @@ export default gulp.series(
 export const build = gulp.series(
   clean,
   gulp.parallel(views, styles, scripts, fonts, images, sprite, webp),
-  revreplace
+  reWriteDependencyNames
 )

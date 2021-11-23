@@ -1,11 +1,10 @@
 import TerserPlugin from 'terser-webpack-plugin';
-
-const env = process.env.NODE_ENV;
+import {isProdMode} from './gulp/gulp.config.js';
 
 export default {
   entry: {
-    index: './src/assets/scripts/index.js',
-    about: './src/assets/scripts/about.js',
+    index: './src/scripts/index.js',
+    about: './src/scripts/about.js',
   },
 
   output: {
@@ -13,10 +12,10 @@ export default {
     chunkFilename: '[name].js',
     publicPath: '/'
   },
-  mode: env === 'prod' ? 'production' : 'development',
-  devtool: env === 'prod' ? false : 'source-map',
+  mode: isProdMode ? 'production' : 'development',
+  devtool: isProdMode ? false : 'source-map',
   optimization: {
-    minimize: env === 'prod',
+    minimize: isProdMode,
     minimizer: [
       new TerserPlugin(),
     ]
